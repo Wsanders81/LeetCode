@@ -31,10 +31,10 @@ function maxProfit(prices) {
 }
 // maxProfit([ 7, 1, 5, 3, 6, 4 ]);
 // maxProfit([ 7, 6, 4, 3, 1 ]);
-maxProfit([ 1, 2 ]);
+// maxProfit([ 1, 2 ]);
 
 //* 217. Contains Duplicate
-// Given an integer array nums, return true if any value appears at least twice in the array, and return false if every element is distinct.
+// ??Given an integer array nums, return true if any value appears at least twice in the array, and return false if every element is distinct.
 function containsDuplicate(nums) {
 	let numObj = new Set();
 	let isDupe = false;
@@ -45,7 +45,138 @@ function containsDuplicate(nums) {
 	});
 	return isDupe;
 }
-console.log(containsDuplicate([ 1, 2, 3, 4 ]));
+// console.log(containsDuplicate([ 1, 2, 3, 4 ]));
+
+// ** 238. Product of Array Except Self
+// ?? Given an integer array nums, return an array answer such that answer[i] is equal to the product of all the elements of nums except nums[i].
+
+// ??The product of any prefix or suffix of nums is guaranteed to fit in a 32-bit integer.
+
+// ??You must write an algorithm that runs in O(n) time and without using the division operation.
+function productExceptSelf(nums) {
+	let output = [];
+	for (let i = 0; i < nums.length; i++) {
+		let left = i - 1;
+		let right = nums.length - 1;
+		let product = 1;
+		let numsToMultiply = [];
+		while (left >= 0) {
+			product *= nums[left];
+			// numsToMultiply.push(nums[left]);
+			left--;
+		}
+		while (right > i) {
+			product *= nums[right];
+			// numsToMultiply.push(nums[right]);
+			right--;
+		}
+		output.push(product);
+	}
+	return output;
+}
+console.log(productExceptSelf([ 1, 2, 3, 4 ]));
+
+//** 53. Maximum Subarray */
+
+function maxSubArray(nums) {
+	let maxSub = 0;
+	let curSum = 0;
+	for (let num of nums) {
+		// if curSum ever below zero then reset curSum
+		if (curSum < 0) {
+			curSum = 0;
+		}
+		// add current number to curSum
+		curSum += num;
+		maxSub = Math.max(maxSub, curSum);
+	}
+	return maxSub;
+}
+// console.log(maxSubArray([ -2, 1, -3, 4, -1, 2, 1, -5, 4 ]));
+
+//!!! 152. Maximum Product Subarray
+//?? Given an integer array nums, find a contiguous non-empty subarray within the array that has the largest product, and return the product.
+
+//?? The test cases are generated so that the answer will fit in a 32-bit integer.
+
+//?? A subarray is a contiguous subsequence of the array.
+
+function maxProduct(nums) {}
+
+//** 153. Find Minimum in Rotated Sorted Array */
+
+// Given the sorted rotated array nums of unique elements, return the minimum element of this array.
+function findMin(nums) {
+	let left = 0;
+	let right = nums.length - 1;
+	while (nums[left] > nums[right]) {
+		let tempNum = nums.shift();
+		nums.push(tempNum);
+	}
+	return nums[0];
+}
+// console.log(findMin([ 4, 5, 6, 7, 0, 1, 2 ]));
+//** 33. Search in Rotated Sorted Array */
+
+function search(nums, target) {
+	function binarySearch(arr, num, leftIdx, rightIdx) {
+        while (leftIdx <= rightIdx) {
+            const middleIdx = Math.floor((leftIdx + rightIdx) / 2);
+            console.log(middleIdx);
+			if (arr[middleIdx] === num) return middleIdx;
+			if (arr[middleIdx] > num) {
+				rightIdx = middleIdx - 1;
+			}
+			else if (arr[middleIdx] < num) {
+				leftIdx = middleIdx + 1;
+			}
+			
+		}
+        return -1; 
+	}
+	function findPivot(arr) {
+		//find index of minimum element
+		let min = arr[0];
+		let minIdx = 0;
+		for (let i = 0; i < arr.length; i++) {
+			if (min > arr[i]) {
+				min = arr[i];
+				minIdx = i;
+			}
+		}
+		return minIdx;
+	}
+	const pivot = findPivot(nums);
+	let left = 0;
+	let right = nums.length - 1;
+    console.log('pivot', nums[pivot])
+	if (nums[pivot] === target) return pivot;
+	if (pivot === 0) {
+		console.log('in order');
+		return binarySearch(nums, target, left, right);
+	}
+	if ( nums[pivot - 1] >= target && nums[0] <= target) {
+		console.log('left side');
+		right = pivot - 1;
+
+		return binarySearch(nums, target, left, right);
+	}
+	else {
+		console.log('right side');
+		left = pivot;
+		return binarySearch(nums, target, left, right);
+	}
+}
+// console.log(search([4,5,6,7,0,1,2], 0));
+// console.log(search([ 5,1,3 ], 3));
+// console.log(search([ 4, 5, 6, 7, 0, 1, 2 ], 3));
+
+//!! 15. 3Sum
+
+
+//!! 11. Container with Most Water
+
+
 
 //?? Algorithm study plan
 var binarySearch = function(nums, target) {
