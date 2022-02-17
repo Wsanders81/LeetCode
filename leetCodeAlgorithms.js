@@ -120,9 +120,9 @@ function findMin(nums) {
 
 function search(nums, target) {
 	function binarySearch(arr, num, leftIdx, rightIdx) {
-        while (leftIdx <= rightIdx) {
-            const middleIdx = Math.floor((leftIdx + rightIdx) / 2);
-            console.log(middleIdx);
+		while (leftIdx <= rightIdx) {
+			const middleIdx = Math.floor((leftIdx + rightIdx) / 2);
+			console.log(middleIdx);
 			if (arr[middleIdx] === num) return middleIdx;
 			if (arr[middleIdx] > num) {
 				rightIdx = middleIdx - 1;
@@ -130,9 +130,8 @@ function search(nums, target) {
 			else if (arr[middleIdx] < num) {
 				leftIdx = middleIdx + 1;
 			}
-			
 		}
-        return -1; 
+		return -1;
 	}
 	function findPivot(arr) {
 		//find index of minimum element
@@ -149,13 +148,13 @@ function search(nums, target) {
 	const pivot = findPivot(nums);
 	let left = 0;
 	let right = nums.length - 1;
-    console.log('pivot', nums[pivot])
+	console.log('pivot', nums[pivot]);
 	if (nums[pivot] === target) return pivot;
 	if (pivot === 0) {
 		console.log('in order');
 		return binarySearch(nums, target, left, right);
 	}
-	if ( nums[pivot - 1] >= target && nums[0] <= target) {
+	if (nums[pivot - 1] >= target && nums[0] <= target) {
 		console.log('left side');
 		right = pivot - 1;
 
@@ -173,10 +172,83 @@ function search(nums, target) {
 
 //!! 15. 3Sum
 
+//** 678. Valid Parenthesis String */
+//* containing *'s as wild
+function checkValidString(str) {
+    if(str[0] === ")") return false; 
+	let parenStack = [];
+    let starStack = []
+    // put ( , * in corresponding stack
+    // index is important here
+	for (let i = 0; i < str.length; i++) {
+		if (str[i] === '(' ) {
+			parenStack.push(i);
+		}
+        if(str[i] === "*") {
+            starStack.push(i)
+        }
+		if (str[i] === ')') {
+            // first check ( stack
+            if(parenStack.length > 0){
+                parenStack.pop(); 
+                // then check * stack
+            } else if(starStack.length > 0){
+                
+                starStack.pop(); 
+            } else {
+                return false; 
+            }
+			
+		}
+	}
+	//check ( stack against star stack. if stars have higher 
+    // index, pop star stack & parenstack
+    while(parenStack.length > 0){
+        if(starStack.length === 0) {
+            return false; 
+        } else if (parenStack[parenStack.length - 1] < starStack[starStack.length - 1]){
+            parenStack.pop()
+            starStack.pop()
+        } else {
+            return false ;
+        }
 
-//!! 11. Container with Most Water
+    }
+	return true;
+}
+// console.log(checkValidString('(*)'));
+// console.log(checkValidString('*(()*))'));
 
+//** */ 11. Container with Most Water
+function maxArea(height) {
+	//double pointer technique
+	let res = 0;
+	let left = 0;
+	let right = height.length - 1;
+	while (left < right) {
+		const area = (right - left) * Math.min(height[left], height[right]);
+		res = Math.max(res, area);
+		if (height[left] < height[right]) {
+			left++;
+		}
+		else right--;
+	}
+	return res;
+}
+console.log(maxArea([ 1, 8, 6, 2, 5, 4, 8, 3, 7 ]));
+//** O(n^2) */
+function maxAreaBruteForce(height) {
+	res = 0;
 
+	for (let i = 0; i < height.length; i++) {
+		for (let j = i + 1; j < height.length; j++) {
+			//can only be as full as lowest height
+			area = (j - i) * Math.min(height[i], height[j]);
+			res = Math.max(res, area);
+		}
+	}
+	return res;
+}
 
 //?? Algorithm study plan
 var binarySearch = function(nums, target) {
