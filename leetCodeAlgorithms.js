@@ -74,7 +74,7 @@ function productExceptSelf(nums) {
 	}
 	return output;
 }
-console.log(productExceptSelf([ 1, 2, 3, 4 ]));
+// console.log(productExceptSelf([ 1, 2, 3, 4 ]));
 
 //** 53. Maximum Subarray */
 
@@ -104,7 +104,7 @@ function maxSubArray(nums) {
 function maxProduct(nums) {}
 
 //** 153. Find Minimum in Rotated Sorted Array */
-
+// ! find O( log n) solution
 // Given the sorted rotated array nums of unique elements, return the minimum element of this array.
 function findMin(nums) {
 	let left = 0;
@@ -235,7 +235,7 @@ function maxArea(height) {
 	}
 	return res;
 }
-console.log(maxArea([ 1, 8, 6, 2, 5, 4, 8, 3, 7 ]));
+// console.log(maxArea([ 1, 8, 6, 2, 5, 4, 8, 3, 7 ]));
 //** O(n^2) */
 function maxAreaBruteForce(height) {
 	res = 0;

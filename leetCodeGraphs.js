@@ -65,5 +65,59 @@ var cloneGraph2 = function(node) {
     
     return cloneMap.get(node.val);
 };
-console.log(cloneGraph2([[2,4],[1,3],[2,4],[1,3]]))
+// console.log(cloneGraph2([[2,4],[1,3],[2,4],[1,3]]))
    
+//!  417. Pacific Atlantic Water Flow
+
+//* 200. Number of Islands
+
+var numIslands = function(grid) {
+    // var for num islands
+    let numOfIslands = 0;
+    // set rows check if empty
+	let rows = grid.length;
+	if (rows === 0) return 0;
+	let cols = grid[0].length;
+
+	let markAsVisited = function(x, y) {
+		// boundaries
+		if (x < 0 || x >= rows || y < 0 || y >= cols || grid[x][y] == 0) return;
+		grid[x][y] = 0;
+		markAsVisited(x + 1, y);
+		markAsVisited(x - 1, y);
+		markAsVisited(x, y + 1);
+		markAsVisited(x, y - 1);
+	};
+	for (let i = 0; i < rows; i++) {
+		
+		for (let j = 0; j < cols; j++) {
+			if (grid[i][j] === '1') {
+				console.log(grid[i][j]);
+				markAsVisited(i, j);
+				numOfIslands += 1;
+			}
+		}
+	}
+	return numOfIslands;
+};
+
+function longestConsecutive(nums){
+    const numSet = new Set(nums)
+    let longest = 0; 
+
+    for(let num of nums){
+        //if num does not have left neighbor in set
+        if(!numSet.has(num - 1)){
+            length = 0; 
+            // check current number n + 0
+            while(numSet.has(num + length)){
+                length++; 
+                longest = Math.max(longest, length)
+            }
+            
+        }
+    }
+    return longest; 
+}
+console.log(longestConsecutive([100,1,200,3,4,2]))
+

@@ -13,7 +13,6 @@ function climbstairs(n) {
 	let one = 1;
 	let two = 1;
 	for (let i = 0; i < n - 1; i++) {
-        console.log(one, two)
 		//store one in temp variable before we shift it
 		let temp = one;
 		// add two previous values and get their result
@@ -23,7 +22,7 @@ function climbstairs(n) {
 	}
 	return one;
 }
-console.log(climbstairs(5));
+// console.log(climbstairs(5));
 
 //** 322. Coin Change */
 // dp bottom up 
