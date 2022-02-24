@@ -5,6 +5,7 @@
 // You may assume that each input would have exactly one solution, and you may not use the same element twice.
 
 // You can return the answer in any order.
+// O(n2)
 var twoSum2 = function(nums, target) {
 	var array = [];
 	for (let i = 0; i < nums.length; i++) {
@@ -14,7 +15,19 @@ var twoSum2 = function(nums, target) {
 	}
 };
 // console.log(twoSum2([ 3, 2, 4 ], 6));
-
+function twoSum(nums, target){
+	let prevMap = new Map()
+	for(let i = 0; i < nums.length; i++){
+		
+		let difference = target - nums[i]
+		let num = nums[i]
+		if(prevMap.get(num) === undefined) prevMap.set(difference, i)
+		else return [prevMap.get(num), i]
+	}
+	
+	
+}
+console.log(twoSum([1,2,3,4,5], 8))
 //** Max Profit */
 function maxProfit(prices) {
 	let maxProfit = 0;

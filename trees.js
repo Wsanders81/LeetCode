@@ -83,6 +83,51 @@ class Tree {
         }
         return count; 
     }
+	sumValues() {
+		if(!this.root) return 0; 
+		let toVisitStack = [this.root]
+		let total = 0; 
+		while(toVisitStack.length){
+		  const current = toVisitStack.pop()
+		  total += current.val
+		  for(let child of current.children) {
+			toVisitStack.push(child)
+		  }
+		}
+		return total
+	  }
+	  countEvens() {
+		if(!this.root) return 0; 
+	
+		let toVisitQueue = [this.root]
+		let total = 0 ;
+		while(toVisitQueue.length){
+		  const current = toVisitQueue.shift()
+		  console.log(current)
+		  if(current.val % 2 === 0) total += 1
+		  for(let child of current.children) {
+			console.log(child)
+			toVisitQueue.push(child)
+		  }
+		}
+		return total; 
+	  }
+	  numGreater(lowerBound) {
+		if(!this.root) return 0; 
+	
+		let toVisitStack = [this.root]
+		let totalGreaterThan = 0; 
+		while(toVisitStack.length){
+		  const current = toVisitStack.pop()
+		  console.log(current)
+		  if(current.val > lowerBound) totalGreaterThan += 1; 
+		  for(let child of current.children) {
+			toVisitStack.push(child)
+		  }
+		}
+		return totalGreaterThan; 
+	
+	  }
 }
 const newTree = new Tree(tree);
 

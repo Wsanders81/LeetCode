@@ -1,5 +1,23 @@
 //** */ 3. Longest Substring Without Repeating Characters
-
+function lengthOfLongestSubstring(s){
+	let count = 0; 
+	let leftIdx = 0; 
+	let rightIdx = 0; 
+	let letters = new Set(); 
+	while(leftIdx < s.length && rightIdx < s.length){
+		
+		if(!letters.has(s[rightIdx])){
+			letters.add(s[rightIdx])
+			rightIdx++; 
+			count = Math.max(letters.size, count)
+		} else {
+			letters.delete(s[leftIdx])
+			leftIdx++; 
+		}
+	}
+	return count; 
+}
+// console.log(lengthOfLongestSubstring("bbbbb"))
 //** */ 424. Longest Repeating Character Replacement
 
 //** */ 76. Minimum Window Substring
