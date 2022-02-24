@@ -73,47 +73,70 @@ function spiralOrder(matrix) {
 
 // console.log(spiralOrder([[1,2,3],[4,5,6],[7,8,9]]));
 
-function wordSearch(board, word) {
-	const rows = board.length;
-	const cols = board[0].length;
-	const path = new Set();
-	function DFS(r, c, i) {
-		if (i === word.length) {
-			return true;
-		}
-		if (
-			r < 0 ||
-			c < 0 ||
-			r >= rows ||
-			c >= cols ||
-			word[i] !== board[r][c] ||
-			path.has([ r, c ])
-		) {
-			return false;
-		}
-		path.add([ r, c ]);
-		let res =
-			DFS(r + 1, c, i + 1) ||
-			DFS(r - 1, c, i + 1) ||
-			DFS(r, c + 1, i + 1) ||
-			DFS(r, c - 1, i + 1);
-		path.delete([ r, c ]);
-		return res;
-	}
-	for (let i = 0; i < rows; i++) {
-		for (let j = 0; j < cols; j++) {
-			if (DFS(i, j, 0) === true) return true;
-		}
-	}
-	return false;
+// function wordSearch(board, word) {
+// 	const rows = board.length;
+// 	const cols = board[0].length;
+// 	function DFS(r, c, i) {
+// 		if (i === word.length) {
+// 			return true;
+// 		}
+		
+// 		if (
+// 			r < 0 ||
+// 			c < 0 ||
+// 			r >= rows ||
+// 			c >= cols ||
+// 			word[i] !== board[r][c] 
+// 		) {
+// 			console.log(board)
+// 			return false;
+// 		}
+// 		board[r][c] = 0; 
+// 		let res =
+// 			DFS(r + 1, c, i + 1) ||
+// 			DFS(r - 1, c, i + 1) ||
+// 			DFS(r, c + 1, i + 1) ||
+// 			DFS(r, c - 1, i + 1);
+// 		return res;
+// 	}
+// 	for (let i = 0; i < rows; i++) {
+// 		for (let j = 0; j < cols; j++) {
+// 			if (DFS(i, j, 0) === true) return true;
+// 		}
+// 	}
+// 	return false;
+// }
+function wordSearch(board, word){
+	const neighbors = [[0, -1], [-1, 0], [0,1], [1,0]]
+    const find = (idx, x, y) => {
+        if (idx === word.length) {
+            return true
+        }
+        if (!board[x] || word[idx] !== board[x][y]) {
+            return false
+        }
+        board[x][y] = "*"
+        for (const [a, b] of neighbors) {
+            if (find(idx+1, x+a, y+b)) {
+                return true
+            }
+        }
+        board[x][y] = word[idx]
+        return false
+    }
+    
+    for (let i = 0; i < board.length; i++) {
+        for (let j = 0; j < board[i].length; j++) {
+            if (find(0, i, j)) {
+                return true
+            }
+        }
+    }
+    return false
 }
 console.log(
 	wordSearch(
-		[
-			[ 'A', 'B', 'C', 'E' ],
-			[ 'S', 'F', 'C', 'S' ],
-			[ 'A', 'D', 'E', 'E' ]
-		],
-		'SEEC'
-	)
+		[["C","A","A"],
+		["A","A","A"],
+		["B","C","D"]], "AAB")
 );

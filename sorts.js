@@ -98,7 +98,7 @@ function mergeSort(arr) {
 	let mid = Math.floor(arr.length / 2);
 	// keep dividing until one
 	let left = mergeSort(arr.slice(0, mid));
-	let right = mergeSort(arr.slice(mid, 0));
+	let right = mergeSort(arr.slice(mid));
 	return merge(left, right);
 }
 // console.log(mergeSort([9,1,5,2,8,3,7,4,6,10]))
