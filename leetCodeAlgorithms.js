@@ -28,6 +28,36 @@ function twoSum(nums, target){
 	
 }
 console.log(twoSum([1,2,3,4,5], 8))
+
+// 15. 3Sum
+var threeSum = function(nums) {
+    nums.sort()
+    
+    let uniqueStringifiedTriplets = new Set()
+            
+    for (let i = 0; i < nums.length; i++) {
+        if (nums[i] === nums[i + 3]) continue
+        
+        for (let j = i + 1; j < nums.length; j++) {
+            if (nums[j] === nums[j + 2]) continue
+            
+            const complement = -(nums[i] + nums[j])
+            const restOfArray = nums.slice(j + 1)
+            
+            if (restOfArray.includes(complement)) {
+                const sortedTriplet = [nums[i], nums[j], complement].sort()
+                
+                uniqueStringifiedTriplets.add(
+                    JSON.stringify(sortedTriplet)
+                )
+            }
+        }
+    }
+    
+    const uniqueTriplets = [...uniqueStringifiedTriplets].map(string => JSON.parse(string))
+    
+    return uniqueTriplets
+};
 //** Max Profit */
 function maxProfit(prices) {
 	let maxProfit = 0;
@@ -105,6 +135,19 @@ function maxSubArray(nums) {
 	}
 	return maxSub;
 }
+var maxSubArray2
+ = function(nums) {
+    let max_so_far = -Infinity;
+    let max_here = 0;
+    
+    for (let i = 0; i < nums.length; i++) {
+        const val = nums[i];
+        max_here = Math.max(val, max_here + val);
+        max_so_far = Math.max(max_here, max_so_far);
+    }
+    
+    return max_so_far;
+};
 // console.log(maxSubArray([ -2, 1, -3, 4, -1, 2, 1, -5, 4 ]));
 
 //!!! 152. Maximum Product Subarray
